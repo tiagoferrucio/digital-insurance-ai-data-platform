@@ -1,0 +1,93 @@
+{
+   "fields":[
+      {
+         "metadata":{
+            
+         },
+         "name":"op_type",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"op_ts",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"ID",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"APOLICE_ID",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"MARCA",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"MODELO",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"ANO",
+         "nullable":true,
+         "type":"long"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"VALOR_FIPE",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"USO",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"KM_RODADO_ESTIMADO",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"DT_INSERCAO",
+         "nullable":true,
+         "type":"string"
+      }
+   ],
+   "type":"struct"
+}

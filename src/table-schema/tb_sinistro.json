@@ -1,0 +1,117 @@
+{
+   "fields":[
+      {
+         "metadata":{
+            
+         },
+         "name":"op_type",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"op_ts",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"ID",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"APOLICE_ID",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"DATA_HORA_ABERTURA",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"TIPO_SINISTRO",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"VALOR_ESTIMADO",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"LATITUDE",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"LONGITUDE",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"ENDERECO_OCORRENCIA",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"CANAL_ABERTURA",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"STATUS",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"DESCRICAO_TEXTO",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"DT_INSERCAO",
+         "nullable":true,
+         "type":"string"
+      }
+   ],
+   "type":"struct"
+}

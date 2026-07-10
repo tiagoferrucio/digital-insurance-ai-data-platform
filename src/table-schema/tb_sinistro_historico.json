@@ -1,0 +1,69 @@
+{
+   "fields":[
+      {
+         "metadata":{
+            
+         },
+         "name":"op_type",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"op_ts",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"APOLICE_ID",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"QTD_SINISTROS_ULTIMOS_12M",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"QTD_SINISTROS_NEGADOS",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"VALOR_TOTAL_PAGO_HISTORICO",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"DATA_ULTIMA_ATUALIZACAO",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"DT_INSERCAO",
+         "nullable":true,
+         "type":"string"
+      }
+   ],
+   "type":"struct"
+}

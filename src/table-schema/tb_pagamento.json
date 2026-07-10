@@ -1,0 +1,69 @@
+{
+   "fields":[
+      {
+         "metadata":{
+            
+         },
+         "name":"op_type",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"op_ts",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"ID",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"SINISTRO_ID",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"VALOR_PAGO",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"DATA_PAGAMENTO",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"FORMA_PAGAMENTO",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"DT_INSERCAO",
+         "nullable":true,
+         "type":"string"
+      }
+   ],
+   "type":"struct"
+}

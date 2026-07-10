@@ -1,0 +1,93 @@
+{
+   "fields":[
+      {
+         "metadata":{
+            
+         },
+         "name":"op_type",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"op_ts",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"ID",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"NOME",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"CPF",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"DATA_NASCIMENTO",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"CIDADE",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"UF",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"TEMPO_RELACIONAMENTO_MESES",
+         "nullable":true,
+         "type":"double"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"CANAL_AQUISICAO",
+         "nullable":true,
+         "type":"string"
+      },
+      {
+         "metadata":{
+            
+         },
+         "name":"DT_INSERCAO",
+         "nullable":true,
+         "type":"string"
+      }
+   ],
+   "type":"struct"
+}
