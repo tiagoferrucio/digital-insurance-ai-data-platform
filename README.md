@@ -43,11 +43,24 @@ Segurança, observabilidade, FinOps e governança são capacidades transversais 
 
 As camadas Bronze e Silver utilizam tabelas **Delta Lake** para manter o estado dos dados e aplicar alterações incrementais com operações `MERGE`. Na transição da Bronze para a Silver, o **Delta Change Data Feed (CDF)** disponibiliza as mudanças realizadas em cada versão da tabela — inserções, atualizações e exclusões — para que o pipeline processe apenas os registros alterados (carga incremental) em vez de reler todo o conjunto de dados.
 
-O CDF deve estar habilitado nas tabelas Delta da camada Bronze na criação das tabelas Delta. Existe 2 formas para fazer isso:
-1 - Add a config no cluter = spark.databricks.delta.properties.defaults.enableChangeDataFeed=true
-2 - Alterando a propriedade de cada uma das tabelas ALTER TABLE table_name SET TBLPROPERTIES (delta.enableChangeDataFeed = true);
+O CDF deve ser habilitado nas tabelas Delta da camada Bronze antes do processamento incremental. Há duas formas de fazer isso:
 
-Para mais detalhes consulte a [documentação oficial do Delta Change Data Feed](https://docs.delta.io/delta-change-data-feed/).
+1. Definir a propriedade padrão antes de criar as tabelas, habilitando o CDF para todas as novas tabelas Delta da sessão:
+
+   ```sql
+   SET spark.databricks.delta.properties.defaults.enableChangeDataFeed = true;
+   ```
+
+2. Habilitar o CDF individualmente em uma tabela existente:
+
+   ```sql
+   ALTER TABLE table_name
+   SET TBLPROPERTIES (delta.enableChangeDataFeed = true);
+   ```
+
+Somente as alterações realizadas após a habilitação do CDF são registradas no feed de mudanças.
+
+Para mais detalhes, consulte a [documentação oficial do Delta Change Data Feed](https://docs.delta.io/delta-change-data-feed/).
 
 ## Estrutura do repositório
 
@@ -168,24 +181,18 @@ Configure o Replicat for Big Data para escrever os eventos no bucket da landing 
 <summary>Parâmetros do Replicat</summary>
 
 ```text
-Replicat
-# into OCI Object storage by chaining
-# File writer handler -> OCI Event handler.
-# Note: Recommended to only edit the configuration marked as TODO
 gg.target=oci
-gg.handler.oci.format=avro_op_ocf
+gg.format=parquet
 gg.handler.oci.format.metaColumnsTemplate=${optype[op_type]},${timestamp[op_ts]},${currenttimestamp[current_ts]},${position[pos]}
-
 # OCI Event Handler Template
-gg.eventhandler.oci.connectionId=ocid1.goldengateconnection.oc1.sa-vinhedo-1.amaaaaaafioir7iaxqbxw7hainpdcipdlbsuj7q7duat77qeknyk6lai2iwa
+gg.eventhandler.oci.connectionId=<connection-Id>
 #TODO: Edit the OCI compartment OCID
-gg.eventhandler.oci.compartmentID=ocid1.compartment.oc1..aaaaaaaa7ni42qbrptng34mhf7i3e23lmxes734ovsggllryxrofxkgk6gda
+gg.eventhandler.oci.compartmentID=<compartiment-Id>
 #TODO: Edit the OCI bucket name
-gg.eventhandler.oci.bucketMappingTemplate=lab-ladingzone
+gg.eventhandler.oci.bucketMappingTemplate=lab-landingzone
 gg.eventhandler.oci.pathMappingTemplate=FNOL/${schemaName}/${tableName}
-gg.eventhandler.oci.fileNameMappingTemplate=${currentTimestamp[yyyyMMdd_HHmmss]}.avro
-gg.eventhandler.oci.inactivityRollInterval=30s
-gg.classpath=$THIRD_PARTY_DIR/oci/*
+gg.eventhandler.oci.fileNameMappingTemplate=${currentTimestamp[yyyyMMdd_HHmmss]}.parquet
+gg.classpath=$THIRD_PARTY_DIR/oci/*:$THIRD_PARTY_DIR/hadoop/*:$THIRD_PARTY_DIR/parquet/*
 
 
 ```
