@@ -67,6 +67,7 @@ Para mais detalhes, consulte a [documentação oficial do Delta Change Data Feed
 ```text
 .
 ├── image-1.png
+├── image-2.png
 ├── README.md
 └── src
     ├── source-oracle-database
@@ -259,7 +260,13 @@ Para o painel operacional, execute o notebook para cada SQL desejado em `src/gol
 | `tb_op_deteccao_catastrofe` | Detecta concentrações recentes de sinistros semelhantes em uma região, estima a exposição e classifica o evento para mobilização de reservas, peritos e comunicação. | Clusterização espacial por geo-grid de aproximadamente 0,25° e janela de 30 minutos; agregações geográficas e financeiras; limiares de volume. |
 | `tb_catastrofe_alerta` / `vw_tb_catastrofe_alerta_atual` | Mantém alertas ativos de possíveis catástrofes em fluxo, com quantidade de sinistros, exposição, centroide e severidade por janela. | Spark Structured Streaming stateful; janela deslizante de 1 hora a cada 15 minutos; watermark de 2 horas; limiares de quantidade e valor; visão com a versão mais recente do alerta. |
 
-Os limiares e pesos são didáticos e devem ser calibrados com dados históricos, apetite a risco, SLAs e políticas da seguradora antes de qualquer uso produtivo.
+## AI Data Platform — Workflow
+
+O **Workflow** é o componente de orquestração do OCI AI Data Platform Workbench. Neste laboratório, ele organiza os notebooks como tarefas dependentes, automatizando a execução das camadas Bronze, Silver e Gold e centralizando o acompanhamento do pipeline.
+
+![Workflow Bronze, Silver e Gold no OCI AI Data Platform Workbench](image-2.png)
+
+Para mais informações, consulte a [documentação de Workflows do OCI AI Data Platform Workbench](https://docs.oracle.com/en/cloud/paas/ai-data-platform/aidug/workflows.html).
 
 ## Validação do fluxo
 
