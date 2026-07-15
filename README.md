@@ -39,6 +39,12 @@ Segurança, observabilidade, FinOps e governança são capacidades transversais 
 - Autonomous AI Lakehouse
 - SQL e notebooks PySpark
 
+## Delta Lake e Change Data Feed
+
+As camadas Bronze e Silver utilizam tabelas **Delta Lake** para manter o estado dos dados e aplicar alterações incrementais com operações `MERGE`. Na transição da Bronze para a Silver, o **Delta Change Data Feed (CDF)** disponibiliza as mudanças realizadas em cada versão da tabela — inserções, atualizações e exclusões — para que o pipeline processe apenas os registros alterados, em vez de reler todo o conjunto de dados.
+
+O CDF deve estar habilitado nas tabelas Delta da camada Bronze antes do processamento incremental. Para informações sobre habilitação, leitura em batch ou streaming, metadados de mudança e retenção, consulte a [documentação oficial do Delta Change Data Feed](https://docs.delta.io/delta-change-data-feed/).
+
 ## Estrutura do repositório
 
 ```text
@@ -259,6 +265,7 @@ Para testar cenários near real time, concentre eventos de fraude ou sinistros g
 ## Referências
 
 - [Bringing external data into AI Data Platform Workbench](https://blogs.oracle.com/ai-data-platform/bringing-external-data-into-ai-data-platform-workbench)
+- [Delta Lake — Change Data Feed](https://docs.delta.io/delta-change-data-feed/)
 - [OCI GoldenGate](https://docs.oracle.com/en/cloud/paas/goldengate-service/)
 - [Oracle AI Data Platform](https://www.oracle.com/data-platform/)
 - [Oracle AI Data Platform - Github](https://github.com/oracle-samples/oracle-aidp-samples/tree/main/getting-started)
