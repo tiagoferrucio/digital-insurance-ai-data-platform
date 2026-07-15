@@ -26,9 +26,7 @@ SELECT
     fs.qtd_sinais,
     fs.sinais_detectados,
     fs.dt_sinal_cdc,
-    ROUND(
-        (unix_timestamp(current_timestamp()) - unix_timestamp(fs.dt_sinal_cdc)) / 60.0
-    , 1)                                                         AS minutos_desde_sinal,
+    ROUND((unix_timestamp(current_timestamp()) - unix_timestamp(fs.dt_sinal_cdc)) / 60.0, 1) AS minutos_desde_sinal,
     s.tipo_sinistro,
     s.status                                                     AS status_sinistro,
     s.valor_estimado,
