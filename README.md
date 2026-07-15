@@ -34,16 +34,20 @@ Segurança, observabilidade, FinOps e governança são capacidades transversais 
 - OCI GoldenGate e OCI GoldenGate for Big Data
 - OCI Object Storage
 - OCI AI Data Platform Workbench
-- Apache Spark / Spark Structured Streaming
-- Delta Lake e Delta Change Data Feed (CDF)
+    - Apache Spark / Spark Structured Streaming
+    - Delta Lake e Delta Change Data Feed (CDF)
 - Autonomous AI Lakehouse
 - SQL e notebooks PySpark
 
 ## Delta Lake e Change Data Feed
 
-As camadas Bronze e Silver utilizam tabelas **Delta Lake** para manter o estado dos dados e aplicar alterações incrementais com operações `MERGE`. Na transição da Bronze para a Silver, o **Delta Change Data Feed (CDF)** disponibiliza as mudanças realizadas em cada versão da tabela — inserções, atualizações e exclusões — para que o pipeline processe apenas os registros alterados, em vez de reler todo o conjunto de dados.
+As camadas Bronze e Silver utilizam tabelas **Delta Lake** para manter o estado dos dados e aplicar alterações incrementais com operações `MERGE`. Na transição da Bronze para a Silver, o **Delta Change Data Feed (CDF)** disponibiliza as mudanças realizadas em cada versão da tabela — inserções, atualizações e exclusões — para que o pipeline processe apenas os registros alterados (carga incremental) em vez de reler todo o conjunto de dados.
 
-O CDF deve estar habilitado nas tabelas Delta da camada Bronze antes do processamento incremental. Para informações sobre habilitação, leitura em batch ou streaming, metadados de mudança e retenção, consulte a [documentação oficial do Delta Change Data Feed](https://docs.delta.io/delta-change-data-feed/).
+O CDF deve estar habilitado nas tabelas Delta da camada Bronze na criação das tabelas Delta. Existe 2 formas para fazer isso:
+1 - Add a config no cluter = spark.databricks.delta.properties.defaults.enableChangeDataFeed=true
+2 - Alterando a propriedade de cada uma das tabelas ALTER TABLE table_name SET TBLPROPERTIES (delta.enableChangeDataFeed = true);
+
+Para mais detalhes consulte a [documentação oficial do Delta Change Data Feed](https://docs.delta.io/delta-change-data-feed/).
 
 ## Estrutura do repositório
 
