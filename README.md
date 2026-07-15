@@ -10,7 +10,7 @@ Implementação de referência de uma plataforma de dados para seguros digitais 
 - Replicar as alterações, em formato Parquet, para uma landing zone no OCI Object Storage.
 - Processar carga inicial e eventos incrementais com Spark Structured Streaming.
 - Organizar os dados nas camadas Bronze, Silver e Gold.
-- Produzir visões operacionais para triagem de sinistros, acompanhamento de filas, prevenção a fraude e detecção de catástrofes.
+- Produzir visões operacionais para triagem de sinistros, acompanhamento de filas, prevenção à fraude e detecção de catástrofes.
 - Disponibilizar dados curados no Autonomous AI Lakehouse para consumo analítico e por aplicações de IA.
 
 ## Arquitetura
@@ -66,7 +66,7 @@ Para mais detalhes, consulte a [documentação oficial do Delta Change Data Feed
 
 ```text
 .
-├── image.png
+├── image-1.png
 ├── README.md
 └── src
     ├── source-oracle-database
@@ -114,13 +114,14 @@ A massa inicial contém aproximadamente **12 mil clientes**, **15 mil apólices*
 - Uma tenancy OCI e permissões para criar e acessar os serviços usados na arquitetura.
 - Oracle Database 26ai acessível pelo OCI GoldenGate.
 - OCI GoldenGate configurado para a origem Oracle e OCI GoldenGate for Big Data configurado para o destino.
-- Bucket no OCI Object Storage para a landing zone.
-- Workspace na OCI AI Data Platform com acesso ao Object Storage.
+- Bucket no OCI Object Storage para a landing zone (o OGG vai escrever os parquet aqui).
+- Workspace no OCI AI Data Platform.
 - Catálogos e schemas equivalentes aos utilizados pelos notebooks, ou seus nomes ajustados no código:
   - `lab_catalog_raw.digital_insurance`
   - `lab_catalog_bronze.digital_insurance`
   - `lab_catalog_silver.digital_insurance`
   - `lab_ailakehouse_gold.lab_digitalinsurance_aidp`
+- Um Autonomous AI Lakehouse para camada Gold.
 
 ## Como executar o laboratório
 
@@ -146,7 +147,6 @@ Configure o Extract para capturar as oito tabelas do schema de origem. Cole abai
 <summary>Parâmetros do Extract</summary>
 
 ```text
-Extract
 --- Auto generated Parameter File, do not edit ---
 EXTRACT UAEXT
 USERIDALIAS sourceconnoracledb DOMAIN OracleGoldenGate
@@ -187,7 +187,7 @@ gg.handler.oci.format.metaColumnsTemplate=${optype[op_type]},${timestamp[op_ts]}
 # OCI Event Handler Template
 gg.eventhandler.oci.connectionId=<connection-Id>
 #TODO: Edit the OCI compartment OCID
-gg.eventhandler.oci.compartmentID=<compartiment-Id>
+gg.eventhandler.oci.compartmentID=<compartment-id>
 #TODO: Edit the OCI bucket name
 gg.eventhandler.oci.bucketMappingTemplate=lab-landingzone
 gg.eventhandler.oci.pathMappingTemplate=FNOL/${schemaName}/${tableName}
@@ -279,4 +279,4 @@ Para testar cenários near real time, concentre eventos de fraude ou sinistros g
 - [Delta Lake — Change Data Feed](https://docs.delta.io/delta-change-data-feed/)
 - [OCI GoldenGate](https://docs.oracle.com/en/cloud/paas/goldengate-service/)
 - [Oracle AI Data Platform](https://www.oracle.com/data-platform/)
-- [Oracle AI Data Platform - Github](https://github.com/oracle-samples/oracle-aidp-samples/tree/main/getting-started)
+- [Oracle AI Data Platform - GitHub](https://github.com/oracle-samples/oracle-aidp-samples/tree/main/getting-started)
