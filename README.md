@@ -1,5 +1,3 @@
-# digital-insurance-ai-data-platform
-Reference implementation of an AI-ready Digital Insurance Data Platform built on Oracle Cloud Infrastructure (OCI).
 # Digital Insurance AI Data Platform
 
 Implementação de referência de uma plataforma de dados para seguros digitais na Oracle Cloud Infrastructure (OCI). O laboratório demonstra o processamento de eventos de sinistros em **near real time**, desde um Oracle Database transacional até a **OCI AI Data Platform**, usando **OCI GoldenGate** para Change Data Capture (CDC) e uma arquitetura Medallion com as camadas Bronze, Silver e Gold.
@@ -17,7 +15,7 @@ Implementação de referência de uma plataforma de dados para seguros digitais 
 
 ## Arquitetura
 
-![Arquitetura do laboratório de processamento near real time](image.png)
+![Arquitetura do laboratório de processamento near real time](image-1.png)
 
 O fluxo implementado é:
 
@@ -125,7 +123,30 @@ Configure o Extract para capturar as oito tabelas do schema de origem. Cole abai
 <summary>Parâmetros do Extract</summary>
 
 ```text
--- Cole aqui o parameter file do Extract
+Extract
+--- Auto generated Parameter File, do not edit ---
+EXTRACT UAEXT
+USERIDALIAS sourceconnoracledb DOMAIN OracleGoldenGate
+EXTTRAIL E1
+GETUPDATEBEFORES
+--- End of auto generated Parameter File ---
+-- Capture DDL operations for listed schema tables
+ddl include mapped
+-- Add step-by-step history of ddl operations captured
+-- to the report file. Very useful when troubleshooting.
+ddloptions report
+-- Write capture stats per table to the report file daily.
+report at 00:01
+-- Rollover the report file weekly. Useful when IE runs
+-- without being stopped/started for long periods of time to
+-- keep the report files from becoming too large.
+reportrollover at 00:01 on Sunday
+-- Report total operations captured, and operations per second
+-- every 10 minutes.
+reportcount every 10 minutes, rate
+-- Table list for capture
+table SEU_SCHEMA.*;
+
 
 ```
 
@@ -137,7 +158,25 @@ Configure o Replicat for Big Data para escrever os eventos no bucket da landing 
 <summary>Parâmetros do Replicat</summary>
 
 ```text
--- Cole aqui os parâmetros do Replicat
+Replicat
+# into OCI Object storage by chaining
+# File writer handler -> OCI Event handler.
+# Note: Recommended to only edit the configuration marked as TODO
+gg.target=oci
+gg.handler.oci.format=avro_op_ocf
+gg.handler.oci.format.metaColumnsTemplate=${optype[op_type]},${timestamp[op_ts]},${currenttimestamp[current_ts]},${position[pos]}
+
+# OCI Event Handler Template
+gg.eventhandler.oci.connectionId=ocid1.goldengateconnection.oc1.sa-vinhedo-1.amaaaaaafioir7iaxqbxw7hainpdcipdlbsuj7q7duat77qeknyk6lai2iwa
+#TODO: Edit the OCI compartment OCID
+gg.eventhandler.oci.compartmentID=ocid1.compartment.oc1..aaaaaaaa7ni42qbrptng34mhf7i3e23lmxes734ovsggllryxrofxkgk6gda
+#TODO: Edit the OCI bucket name
+gg.eventhandler.oci.bucketMappingTemplate=lab-ladingzone
+gg.eventhandler.oci.pathMappingTemplate=FNOL/${schemaName}/${tableName}
+gg.eventhandler.oci.fileNameMappingTemplate=${currentTimestamp[yyyyMMdd_HHmmss]}.avro
+gg.eventhandler.oci.inactivityRollInterval=30s
+gg.classpath=$THIRD_PARTY_DIR/oci/*
+
 
 ```
 
@@ -217,21 +256,9 @@ Depois da carga inicial, crie, altere e remova registros no Oracle Database e co
 
 Para testar cenários near real time, concentre eventos de fraude ou sinistros geograficamente próximos dentro das janelas definidas nas consultas Gold.
 
-## Considerações para produção
-
-- Substitua dados sintéticos e limiares fixos por regras governadas e calibradas.
-- Proteja dados pessoais, como CPF e nome, com mascaramento, criptografia e controles de acesso.
-- Monitore atraso do Extract/Replicat, freshness das tabelas, falhas de micro-batch e crescimento dos checkpoints.
-- Defina políticas de retenção e lifecycle para landing zone, tabelas Delta e checkpoints.
-- Implemente testes de qualidade, reconciliação de contagens e tratamento de schema evolution.
-- Versione a configuração do GoldenGate sem incluir credenciais ou outros segredos.
-
 ## Referências
 
 - [Bringing external data into AI Data Platform Workbench](https://blogs.oracle.com/ai-data-platform/bringing-external-data-into-ai-data-platform-workbench)
 - [OCI GoldenGate](https://docs.oracle.com/en/cloud/paas/goldengate-service/)
 - [Oracle AI Data Platform](https://www.oracle.com/data-platform/)
-
-## Licença
-
-Este projeto está disponibilizado sob os termos descritos no arquivo [LICENSE](LICENSE).
+- [Oracle AI Data Platform - Github](https://github.com/oracle-samples/oracle-aidp-samples/tree/main/getting-started)
