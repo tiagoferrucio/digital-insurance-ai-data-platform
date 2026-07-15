@@ -287,3 +287,4 @@ Para testar cenários near real time, concentre eventos de fraude ou sinistros g
 - [OCI GoldenGate](https://docs.oracle.com/en/cloud/paas/goldengate-service/)
 - [Oracle AI Data Platform](https://www.oracle.com/data-platform/)
 - [Oracle AI Data Platform - GitHub](https://github.com/oracle-samples/oracle-aidp-samples/tree/main/getting-started)
+- [Oracle AI Data Platform - Training and Assessment](https://learn.oracle.com/ols/learning-path/oracle-ai-data-platform-for-agentic-ai-training-and-assessment/98531/160154)
